@@ -154,7 +154,7 @@ class DropBoxController {
   }
 
   getFileIconView(file) {
-    switch (file.type) {
+    switch (file.mimetype) {
       case 'folder':
         return `
         <svg width="160" height="160" viewBox="0 0 160 160" class="mc-icon-template-content tile__preview tile__preview--icon">
@@ -319,18 +319,18 @@ class DropBoxController {
 
   getFileView(file, key) {
 
-    let li = document.createElement('li');
+    let li = document.createElement('li')
 
-    li.dataset.key = key;
+    li.dataset.key = key
 
     li.innerHTML = `
-        ${this.getFileIconView(file)}
-        <div class="name text-center">${file.name}s</div>
-      
-    `
-    return li
-  }
+      ${this.getFileIconView(file)}
+      <div class="name text-center">${file.originalFilename}</div>
+    ` 
+    this.initEventsLi(li)
 
+    return li;
+  }
   
   readFiles() {
     this.getFirebaseRef().on('value', snapshot => {
@@ -341,6 +341,42 @@ class DropBoxController {
         
         this.listFilesEl.appendChild(this.getFileView(data, key))
       })
+    })
+  }
+  initEventsLi(li) {
+    li.addEventListener('click', e => {
+
+      if (e.shiftKey) {
+        let firstLi = this.listFilesEl.querySelector('.selected');
+
+        if (firstLi) {
+          let indexStart;
+          let indexEnd;
+          let lis = li.parentElement.childNodes;
+
+          lis.forEach((el, index) => {
+            if (firstLi === el) indexStart = index;
+            if (li === el) indexEnd = index;
+          })
+          
+          let index = [indexStart, indexEnd].sort()
+
+          lis.forEach((el, i) => {
+            if (i >= index[0] && i <= index[1]) {
+              el.classList.add('selected')
+            }
+          })
+          return true;
+        }
+      }
+
+      if (!e.ctrlKey) {
+        this.listFilesEl.querySelectorAll('li.selected').forEach(el => {
+          el.classList.remove('selected')
+        })
+      }
+
+      li.classList.toggle('selected')
     })
   }
 
