@@ -154,7 +154,7 @@ class DropBoxController {
   }
 
   getFileIconView(file) {
-    switch (file.mimetype) {
+    switch (file.type) {
       case 'folder':
         return `
         <svg width="160" height="160" viewBox="0 0 160 160" class="mc-icon-template-content tile__preview tile__preview--icon">
@@ -343,6 +343,7 @@ class DropBoxController {
       })
     })
   }
+
   initEventsLi(li) {
     li.addEventListener('click', e => {
 
@@ -376,7 +377,7 @@ class DropBoxController {
         })
       }
 
-      li.classList.toggle('selected')
+      
     })
   }
 
