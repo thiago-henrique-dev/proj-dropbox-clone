@@ -5,36 +5,35 @@ class DropBoxController {
     this.snackModalEl = document.querySelector("#react-snackbar-root");
     this.progressBarEl = this.snackModalEl.querySelector('.mc-progress-bar-fg')
     this.nameFileEl = this.snackModalEl.querySelector('.filename')
-    this.timeleftEl = this.snackModalEl.querySelector('.timeleft')
+    this.timeleftEl = this.snackModalEl.querySelector('.timeleft');
 
     this.connectFirebase()
+
+    
+
+ 
     this.initEvents();
   }
 
-  
-  connectFirebase(){
-    const firebaseConfig = {
 
-      apiKey: "AIzaSyCwBOtVnN6EgHccAr_jPgqAQpG1sl3NC1Q",
-  
-      authDomain: "dropbox-clone-74a12.firebaseapp.com",
-  
-      databaseURL: "https://dropbox-clone-74a12-default-rtdb.firebaseio.com",
-  
-      projectId: "dropbox-clone-74a12",
-  
-      storageBucket: "dropbox-clone-74a12.appspot.com",
-  
-      messagingSenderId: "687472642288",
-  
-      appId: "1:687472642288:web:b7746387631518e168da35",
-  
-      measurementId: "G-90DX79811K"
-  
+  connectFirebase(){
+    const config = {
+      apiKey: "AIzaSyD8v21M3gFE9fwTf9_Wl6dHXaTGWC5Tz60",
+      authDomain: "drop-box-clone-a381b.firebaseapp.com",
+      databaseURL: "https://drop-box-clone-a381b-default-rtdb.firebaseio.com",
+      projectId: "drop-box-clone-a381b",
+      storageBucket: "drop-box-clone-a381b.appspot.com",
+      messagingSenderId: "664787214931",
+      appId: "1:664787214931:web:26eeb828cef942a9105ca6",
+      measurementId: "G-RTHQG8TKM0"
     };
+
+  firebase.initializeApp(config)
+
     
-  
+    
   }
+    
 
   initEvents() {
     this.btnSendFileEl.addEventListener("click", (event) => {
